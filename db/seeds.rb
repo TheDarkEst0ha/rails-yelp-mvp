@@ -7,3 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+
+puts "Cleaning database..."
+Restaurant.destroy_all
+
+puts 'Creating 5 fake restaurants...'
+5.times do
+  restaurant = Restaurant.new(
+    name:    Faker::Restaurant.name ,
+    address: Faker::Address.street_address.to_s,
+    category: %w[chinese italian japanese french belgian].sample
+  )
+  restaurant.save!
+end
+puts "Finished! Created #{Restaurant.count} restaurants."

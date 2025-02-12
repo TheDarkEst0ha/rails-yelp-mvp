@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :restaurants, only: %i[index show new create] do
-    resources :reviews, only: %i[index]
+  root to: 'restaurants#index'
+  resources :restaurants, only: %i[index show new create destroy] do
+    resources :reviews, only: %i[new create]
   end
+
+  resources :reviews, only: [:destroy]
 end

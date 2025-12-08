@@ -1,24 +1,77 @@
-# README
+# Rails Yelp MVP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simplified Yelp-style application built with Ruby on Rails. Users can browse restaurants, view details, read reviews, and add their own reviews.
 
-Things you may want to cover:
+## 🚀 Features
 
-* Ruby version
+* List of restaurants
+* Detailed restaurant pages
+* Add reviews with comments and ratings
+* Average rating calculation
+* Responsive design with custom CSS
+* Bootstrap integration
+* Refactored forms into partials
 
-* System dependencies
+## 🛠️ Tech Stack
 
-* Configuration
+* **Ruby on Rails 7**
+* **PostgreSQL** (default Rails database is fine too)
+* **Bootstrap 5** (CDN)
+* **ERB** templates
+* **CSS** (no SCSS)
 
-* Database creation
+## 🧮 Database Models
 
-* Database initialization
+### Restaurant
 
-* How to run the test suite
+* name (string)
+* address (string)
+* category (string)
+* accepts_reservations (boolean)
+* has_many :reviews
 
-* Services (job queues, cache servers, search engines, etc.)
+### Review
 
-* Deployment instructions
+* rating (float)
+* content (text)
+* belongs_to :restaurant
 
-* ...
+## ▶️ Running the Project
+
+1. Install dependencies:
+
+   ```bash
+   bundle install
+   ```
+
+2. Create and migrate the database:
+
+   ```bash
+   rails db:create db:migrate
+   ```
+
+3. Seed data (optional):
+
+   ```bash
+   rails db:seed
+   ```
+
+4. Start the server:
+
+   ```bash
+   rails s
+   ```
+
+5. Open in your browser:
+
+   ```
+   http://localhost:3000
+   ```
+
+## 🤝 Contributing
+
+Feel free to fork and improve! Pull requests welcome.
+
+## 📄 License
+
+This project is for educational purposes (Le Wagon exercise).

@@ -1,0 +1,28 @@
+<div class="container bg-card border-end border-bottom rounded p-4 mt-3 mb-5 mx-5 col-lg-8">
+  <h4 class="mb-3">Add a review</h4>
+
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+
+    <div class="row g-2 mb-2">
+      <div class="col-auto d-flex ">
+        <%= f.label :rating, class: 'col-form-label' %>
+      </div>
+
+      <div class="col-sm-10">
+        <%= f.input :rating,
+              label: false,
+              input_html: { class: "rounded bg-input ps-2", min: 1, max: 5, step: 0.1 },
+              hint: "Max rating is 5"
+        %>
+      </div>
+    </div>
+
+    <%= f.input :content,
+          label: "Content",
+          input_html: { class: "form-control form-control-sm bg-input" }
+    %>
+
+    <%= f.submit "Create Review", class: 'btn primary-btn mt-3' %>
+
+  <% end %>
+</div>

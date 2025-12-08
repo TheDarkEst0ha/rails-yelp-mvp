@@ -13,13 +13,24 @@ require 'faker'
 puts "Cleaning database..."
 Restaurant.destroy_all
 
-puts 'Creating 5 fake restaurants...'
-5.times do
-  restaurant = Restaurant.new(
-    name:    Faker::Restaurant.name ,
-    address: Faker::Address.street_address.to_s,
-    category: %w[chinese italian japanese french belgian].sample
-  )
-  restaurant.save!
-end
+puts 'Creating 2 fake restaurants...'
+
+restaurant1 = Restaurant.new(
+  name:    "Saizeriya Nagoya Matsuoka Building Store",  
+  address: "2-45-7 Meieki, Nakamura-ku Matsuoka Bldg. B1F, Nagoya 450-0002 Aichi Prefecture",
+  category: "Italian",
+  phone_number: "052-533-1414",
+  accepts_reservations: false
+)
+restaurant1.save!
+
+restaurant2 = Restaurant.new(
+  name: "Outback Steakhouse Nagoya",
+  address: "Nishiki324 Bldg. B1F, 3-24-24 Nishiki, Naka-ku, Nagoya City, Aichi",
+  category: "Steakhouse",
+  phone_number: " 050-5461-1141",
+  accepts_reservations: true
+)
+restaurant2.save!
+
 puts "Finished! Created #{Restaurant.count} restaurants."

@@ -1,73 +1,80 @@
-<div class="container p-4 my-3 mx-5">
-  <div class="d-flex justify-content-between">
+<div class="container p-4 my-3">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
     <h2 class="pt-4">Overview</h2>
-    <%= link_to 'Back', restaurants_path, class: 'btn btn-secondary my-auto' %>
+    <%= link_to 'Back', restaurants_path, class: 'btn btn-secondary mb-3' %>
   </div>
 
-  <div class="form-control p-4 m-3">
-      <h1><%= @restaurant.name %></h1>
-      <h5><%= @restaurant.address %> - <%= @restaurant.category.capitalize %></h5>
-      <div class="d-flex gap-5">
-        <% if @restaurant.phone_number.present? %>
-            <p class=" my-0">
-              <i class="fa-solid fa-phone" style="color: #1d9134;"></i>- <%= @restaurant.phone_number %>
-            </p>
-        <% end %>
+  <div class="form-control p-4">
+    <h1 class="fw-bold"><%= @restaurant.name %></h1>
+    <h5><%= @restaurant.address %> - <%= @restaurant.category.capitalize %></h5>
 
-        <p class="mb-0">
-          Reservations?
-          <% if @restaurant.accepts_reservations %>
-            <span class="text-success"><i class="fa-solid fa-check"></i> Yes</span>
-          <% else %>
-            <span class="text-danger"><i class="fa-solid fa-xmark"></i> No</span>
-          <% end %>
+    <div class="d-flex flex-column flex-md-row gap-3 mt-3">
+      <% if @restaurant.phone_number.present? %>
+        <p class="my-0">
+          <i class="fa-solid fa-phone" style="color: #1d9134;"></i>
+          <%= @restaurant.phone_number %>
         </p>
-      </div>
+      <% end %>
+
+      <p class="mb-0">
+        Reservations?
+        <% if @restaurant.accepts_reservations %>
+          <span class="text-success"><i class="fa-solid fa-check"></i> Yes</span>
+        <% else %>
+          <span class="text-danger"><i class="fa-solid fa-xmark"></i> No</span>
+        <% end %>
+      </p>
+    </div>
   </div>
 
-  <div class="p-4 m-3">
+  <div class="p-4">
+
     <% average = @restaurant.reviews.average(:rating) %>
     <% if average %>
-      <h2>Reviews (<%= average.round(1) %><i class="fa-solid fa-star" style="color: #FFD43B;"></i>) </h2>
+      <h2>Reviews (<%= average.round(1) %> <i class="fa-solid fa-star" style="color: #FFD43B;"></i>)</h2>
     <% else %>
       <h2>Reviews</h2>
     <% end %>
 
     <p class="mt-3">
-      <%= link_to 'Add Review', "#test", class: 'btn primary-btn',  data: {bs_toggle: "collapse"}  %>
+      <%= link_to 'Add Review', "#addReview", class: 'btn primary-btn', data: { bs_toggle: "collapse" } %>
     </p>
-    <div class="collapse" id="test">
+
+    <div class="collapse" id="addReview">
       <%= render "reviews/form" %>
     </div>
 
-
     <% if @restaurant.reviews.any? %>
-      <% @restaurant.reviews.each do |review| %>
-         <% badge_color =
-          if review.rating >= 4
-            "bg-success"
-          elsif review.rating >= 3
-            "bg-warning text-dark"
-          else
-            "bg-danger"
-          end
-        %>
+      <div class="d-flex flex-column gap-4">
+        <% @restaurant.reviews.each do |review| %>
+          <% badge_color =
+            if review.rating >= 4
+              "bg-success"
+            elsif review.rating >= 3
+              "bg-warning text-dark"
+            else
+              "bg-danger"
+            end
+          %>
 
-        <div class="bg-dark border rounded p-3 my-3 review-card">
-          <p class="lh-1">
-            <span class="badge <%= badge_color %>">
-              <%= review.rating %> <i class="fa-solid fa-star"></i>
-            </span>
-            </p>  
+          <div class="bg-dark border rounded p-3 review-card">
+            <p class="lh-1">
+              <span class="badge <%= badge_color %>">
+                <%= review.rating %> <i class="fa-solid fa-star"></i>
+              </span>
+            </p>
+
             <p><%= review.content.capitalize %></p>
 
-          <sub><i class="fa-solid fa-calendar pe-1" style="color: #B197FC;"></i> <span>Submitted on</span> <%= review.created_at.strftime("%d-%m-%Y") %> </sub>
-        </div>
-      <% end %>
-
+            <sub>
+              <i class="fa-solid fa-calendar pe-1" style="color: #B197FC;"></i>
+              Submitted on <%= review.created_at.strftime("%d-%m-%Y") %>
+            </sub>
+          </div>
+        <% end %>
+      </div>
     <% else %>
-        <p class="pt-2 px-3">No reviews yet...</p>
+      <p class="pt-2 px-3">No reviews yet...</p>
     <% end %>
   </div>
-
 </div>
